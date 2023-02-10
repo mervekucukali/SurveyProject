@@ -1,0 +1,49 @@
+﻿@model Survey.Models.Person
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">Kişi Düzenleme Sayfası</div>
+        <hr>
+        <form action="/Person/Edit" method="post">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <div class="form-group">
+                <label for="input-1">Ad Soyad</label>
+                <input type="text" class="form-control" name="NameSurname" id="input-1" value="@Model.NameSurname" placeholder="Ad Soyad" maxlength="50" required>
+            </div>
+            <div class="form-group">
+                <label for="input-2">Kullanıcı Adı</label>
+                <input type="text" class="form-control" name="UserName" id="input-2" value="@Model.UserName" placeholder="Kullanıcı Adı" maxlength="10" required>
+            </div>
+            <div class="form-group">
+                <label for="input-3">Şifre</label>
+                <input type="password" class="form-control" name="Password" id="input-3" value="@Model.Password" placeholder="Şifre" maxlength="20" required>
+            </div>
+            <label for="input-3">Admin mi?</label>
+            <div class="icheck-material-primary icheck-inline">
+                @if (Model.IsAdmin == true)
+                {
+                    <input type="radio" id="1" name="Answer" value="@Survey.Constants.AnswerType.Yes" checked>
+                    <label for="1">@Survey.Constants.AnswerType.Yes</label>
+
+                    <input type="radio" id="2" name="Answer" value="@Survey.Constants.AnswerType.No">
+                    <label for="2">@Survey.Constants.AnswerType.No</label>
+                }
+                else
+                {
+                    <input type="radio" id="1" name="Answer" value="@Survey.Constants.AnswerType.Yes">
+                    <label for="1">@Survey.Constants.AnswerType.Yes</label>
+
+                    <input type="radio" id="2" name="Answer" value="@Survey.Constants.AnswerType.No" checked>
+                    <label for="2">@Survey.Constants.AnswerType.No</label>
+                }
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-round btn-success shadow-success px-5"><i class="icon-lock"></i> Kaydet</button>
+            </div>
+        </form>
+    </div>
+</div>
+

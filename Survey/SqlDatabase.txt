@@ -1,0 +1,193 @@
+﻿USE [master]
+GO
+/****** Object:  Database [Survey]    Script Date: 1.02.2023 10:40:26 ******/
+CREATE DATABASE [Survey]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Survey', FILENAME = N'C:\Users\Dell\Survey.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'Survey_log', FILENAME = N'C:\Users\Dell\Survey_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [Survey] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Survey].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Survey] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Survey] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Survey] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Survey] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Survey] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Survey] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [Survey] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [Survey] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Survey] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Survey] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Survey] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Survey] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Survey] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Survey] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Survey] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [Survey] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Survey] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Survey] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Survey] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Survey] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Survey] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [Survey] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [Survey] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [Survey] SET  MULTI_USER 
+GO
+ALTER DATABASE [Survey] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Survey] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [Survey] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [Survey] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [Survey] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [Survey] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [Survey] SET QUERY_STORE = OFF
+GO
+USE [Survey]
+GO
+/****** Object:  Table [dbo].[Answer]    Script Date: 1.02.2023 10:40:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Answer](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CategoryName] [nvarchar](150) NULL,
+	[PersonName] [nvarchar](50) NULL,
+	[UserName] [nvarchar](150) NULL,
+	[CreateDate] [datetime] NULL,
+	[CreateBy] [nvarchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AnswerLinee]    Script Date: 1.02.2023 10:40:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AnswerLinee](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[AnswerId] [int] NULL,
+	[Question] [nvarchar](250) NULL,
+	[Answer] [nvarchar](250) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Person]    Script Date: 1.02.2023 10:40:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Person](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[NameSurname] [nvarchar](250) NULL,
+	[UserName] [nvarchar](150) NULL,
+	[Password] [nvarchar](10) NULL,
+	[CreateDate] [datetime] NULL,
+	[CreateBy] [nvarchar](150) NULL,
+	[IsAdmin] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Question]    Script Date: 1.02.2023 10:40:27 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Question](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[QuestionLine] [nvarchar](500) NULL,
+	[CategoryName] [nvarchar](100) NULL,
+	[QuestionType] [nvarchar](100) NULL,
+	[CreateDate] [datetime] NULL,
+	[CreateBy] [nvarchar](250) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Person] ON 
+
+INSERT [dbo].[Person] ([Id], [NameSurname], [UserName], [Password], [CreateDate], [CreateBy], [IsAdmin]) VALUES (2, N'merve irem', N'merveirem', N'123', CAST(N'2023-01-23T21:32:59.630' AS DateTime), N'ÖmerEymen', 1)
+SET IDENTITY_INSERT [dbo].[Person] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Question] ON 
+
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (31, N'Ne sıklıkla internetten alışveriş yaparsınız?', N'Alışveriş', N'coktansecmeli', CAST(N'2023-02-01T02:20:17.557' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (32, N'İnternetten ürün satın almayla ilgili en büyük endişeleriniz nelerdir?', N'Alışveriş', N'Yorum', CAST(N'2023-02-01T02:20:46.503' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (33, N'İnternetten genellikle ürün satın alır mısınız?', N'Alışveriş', N'EvetHayır', CAST(N'2023-02-01T02:21:25.313' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (34, N'Film veya dizi izlemeyi sever misiniz?', N'Eğlence', N'EvetHayır', CAST(N'2023-02-01T02:22:03.730' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (35, N'Sinemada izlediğiniz gişe rekorları kıran filmin genel kalitesini nasıl değerlendirirsiniz?', N'Eğlence', N'Yorum', CAST(N'2023-02-01T02:22:25.093' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (36, N'Video oyunları oynamak için çok fazla zaman harcıyor musunuz?', N'Eğlence', N'coktansecmeli', CAST(N'2023-02-01T02:23:18.610' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (37, N'Bulunduğunuz yerde kullanabileceğiniz 7/24 açık bir kütüphane bulunuyor mu?', N'Eğitim', N'EvetHayır', CAST(N'2023-02-01T02:23:54.767' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (38, N'Yüksek öğrenime devam etmenizin başlıca nedenini en iyi şekilde nasıl tanımlarsınız?', N'Eğitim', N'Yorum', CAST(N'2023-02-01T02:24:38.503' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (39, N'Eğitim hayatınızda gördüğünüz eğitim sizce yeterli mi?', N'Eğitim', N'coktansecmeli', CAST(N'2023-02-01T02:29:22.537' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (41, N'Sporun hayatınızda yeri nedir ?', N'Spor', N'coktansecmeli', CAST(N'2023-02-01T02:33:43.523' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (42, N'Spor yapar mısınız ?', N'Spor', N'EvetHayır', CAST(N'2023-02-01T02:35:11.973' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (43, N'Topluluğunuzdaki gençlik spor programlarının mevcut durumundan ne kadar memnunsunuz?', N'Spor', N'Yorum', CAST(N'2023-02-01T02:35:48.793' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (44, N'Yazılım alanında kendinizi nasıl geliştiriyorsunuz ?', N'Yazılım', N'Yorum', CAST(N'2023-02-01T02:36:31.797' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (45, N'Yazılım için diploma önemli midir ?', N'Yazılım', N'EvetHayır', CAST(N'2023-02-01T02:36:56.470' AS DateTime), N'merve irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (46, N'Yazılımda alanında kendinizi nasıl değerlendiriyorsunuz ?', N'Yazılım', N'coktansecmeli', CAST(N'2023-02-01T02:38:47.997' AS DateTime), N'irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (47, N'Bir tatil yeri seçerken sizin için maaliyet önemli midir ? ', N'Tatil', N'coktansecmeli', CAST(N'2023-02-01T02:39:25.337' AS DateTime), N'irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (48, N'Tatil yapmaktan en çok keyif aldığınız yer neresidir ? ', N'Tatil', N'Yorum', CAST(N'2023-02-01T02:39:39.367' AS DateTime), N'irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (49, N'Bir tatil yeri seçerken sizce güvenlik öenmli midir ?', N'Tatil', N'EvetHayır', CAST(N'2023-02-01T02:40:26.350' AS DateTime), N'irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (50, N'Fast Food mu yoksa ev yemeği mi tercih ederiniz ?', N'Yiyecek', N'Yorum', CAST(N'2023-02-01T02:42:04.687' AS DateTime), N'irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (51, N'Gıda maddesi alırken son kullanma tarihine dikkat ediyor musunuz?', N'Yiyecek', N'EvetHayır', CAST(N'2023-02-01T02:42:19.777' AS DateTime), N'irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (52, N'Diyet yaparken istikrarlı mısınız ?', N'Yiyecek', N'coktansecmeli', CAST(N'2023-02-01T02:44:37.417' AS DateTime), N'irem')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (53, N'Cilt bakımı ürünleri kullanır mısınız ?', N'Güzellik', N'EvetHayır', CAST(N'2023-02-01T02:49:44.600' AS DateTime), N'merve')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (54, N'Makyaj ürünü alırken sizce testerlar işinize yarıyor mu ?', N'Güzellik', N'coktansecmeli', CAST(N'2023-02-01T02:52:43.527' AS DateTime), N'merve')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (55, N'Olmazsa olmaz kozmetik ürünleriniz hangileridir?', N'Güzellik', N'Yorum', CAST(N'2023-02-01T02:55:38.547' AS DateTime), N'merve')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (56, N'Arkadaşlık fedakarlık gerektirir mi ?', N'Arkadaşlık', N'EvetHayır', CAST(N'2023-02-01T02:57:00.580' AS DateTime), N'merve')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (57, N'Arkadaşlık kelimesi sizin için neyi ifade ediyor ?', N'Arkadaşlık', N'Yorum', CAST(N'2023-02-01T02:58:08.877' AS DateTime), N'merve')
+INSERT [dbo].[Question] ([Id], [QuestionLine], [CategoryName], [QuestionType], [CreateDate], [CreateBy]) VALUES (58, N'Arkadaş canlısı biri misiniz ?', N'Arkadaşlık', N'coktansecmeli', CAST(N'2023-02-01T02:58:39.117' AS DateTime), N'merve')
+SET IDENTITY_INSERT [dbo].[Question] OFF
+GO
+USE [master]
+GO
+ALTER DATABASE [Survey] SET  READ_WRITE 
+GO

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Survey.Models.Question>
+
+    @{
+
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        int gomines = 0;
+    }
+
+
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">Soru Ekleme Sayfası</div>
+            <hr>
+            <form action="/Question/Create">
+                <div class="form-group">
+                    <label for="input-1">Soru Cümlesi</label>
+                    <input type="text" class="form-control" name="QuestionLine" id="QuestionLine" placeholder="Soruyu Giriniz" maxlength="250" required>
+                </div>
+                <div class="form-group">
+                    <label for="input-2">Kategori</label>
+                    <div class="icheck-material-primary icheck-inline">
+                        <input type="radio" id=Güzellik name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName1">
+                        <label for="Güzellik">Güzellik</label>
+                        <input type="radio" id=Yazılım name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName2">
+                        <label for="Yazılım">Yazılım</label>
+                        <input type="radio" id=Arkadaşlık name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName3">
+                        <label for="Arkadaşlık">Arkadaşlık</label>
+                        <input type="radio" id=Eğlence name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName4">
+                        <label for="Eğlence">Eğlence</label>
+                        <input type="radio" id=Spor name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName5">
+                        <label for="Spor">Spor</label>
+                        <input type="radio" id=Alışveriş name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName6">
+                        <label for="Alışveriş">Alışveriş</label>
+                        <input type="radio" id=Tatil name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName7">
+                        <label for="Tatil">Tatil</label>
+                        <input type="radio" id=Yiyecek name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName8">
+                        <label for="Yiyecek">Yiyecek-İçecek</label>
+                        <input type="radio" id=Eğitim name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName9">
+                        <label for="Eğitim">Eğitim</label>
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+            <label for="input-3">Kategori Tipi</label>
+            <div class="icheck-material-primary icheck-inline">
+                <input type="radio" id=evet/hayır name="QuestionType" class="radio_" value="@Survey.Constants.AnswerType.YesNo">
+                <label for="evet/hayır">Evet/Hayır</label>
+                <input type="radio" id=coktansecmeli name="QuestionType" class="radio_" value="@Survey.Constants.AnswerType.CoktanSecmeli">
+                <label for="coktansecmeli">Çoktan Seçmeli</label>
+                <input type="radio" id=yorum name="QuestionType" class="radio_" value="@Survey.Constants.AnswerType.Yorum">
+                <label for="yorum">Yorum</label>
+            </div>
+        </div>*@
+                <div class="form-group">
+                    <label for="input-3">Kategori Tipi</label>
+                    <div class="icheck-material-primary icheck-inline">
+                        <input type="radio" id=evet/hayır name="qtype" class="radio_" value="@Survey.Constants.AnswerType.YesNo">
+                        <label for="evet/hayır">Evet/Hayır</label>
+                        <input type="radio" id=coktansecmeli name="qtype" class="radio_" value="@Survey.Constants.AnswerType.CoktanSecmeli">
+                        <label for="coktansecmeli">Çoktan Seçmeli</label>
+                        <input type="radio" id=yorum name="qtype" class="radio_" value="@Survey.Constants.AnswerType.Yorum">
+                        <label for="yorum">Yorum</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-round btn-success shadow-success px-5"><i class="icon-lock"></i> Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+

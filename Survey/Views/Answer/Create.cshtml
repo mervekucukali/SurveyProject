@@ -1,0 +1,169 @@
+﻿@model IEnumerable<Survey.Models.Question>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int number = 1;
+    int gomines = 0;
+    int number1 = 4;
+    int number2 = 7;
+    int number3 = 2;
+    int number4 = 3;
+    int number5 = 5;
+    int number6 = 6;
+}
+<script src="~/Content/assets/js/jquery.min.js"></script>
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title text-center">Anket Cevaplama Sayfası</div>
+        <hr>
+        @using (Html.BeginForm("Create", "Answer"))
+        {
+            @*<div class="form-group">
+                    @Html.DropDownList("CategoryName", (SelectList)ViewBag.Person, "Lütfen Kişi Seçiniz", new { @class = "form-control" })
+                </div>*@
+     
+            <form method="post">
+                @*<input type="text" name="CategoryName" id="CategoryName" value="CategoryName"/>*@
+                <div class="form-group">
+                    <label for="input-2">Kategoriler</label>
+                    <div class="icheck-material-primary icheck-inline">
+                        <input type="radio" id=Güzellik name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName1">
+                        <label for="Güzellik">Güzellik</label>
+                        <input type="radio" id=Yazılım name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName2">
+                        <label for="Yazılım">Yazılım</label>
+                        <input type="radio" id=Arkadaşlık name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName3">
+                        <label for="Arkadaşlık">Arkadaşlık</label>
+                        <input type="radio" id=Eğlence name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName4">
+                        <label for="Eğlence">Eğlence</label>
+                        <input type="radio" id=Spor name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName5">
+                        <label for="Spor">Spor</label>
+                        <input type="radio" id=Alışveriş name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName6">
+                        <label for="Alışveriş">Alışveriş</label>
+                        <input type="radio" id=Tatil name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName7">
+                        <label for="Tatil">Tatil</label>
+                        <input type="radio" id=Yiyecek name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName8">
+                        <label for="Yiyecek">Yiyecek-İçecek</label>
+                        <input type="radio" id=Eğitim name="CategoryName" class="radio_" value="@Survey.Constants.AnswerType.CategoryName9">
+                        <label for="Eğitim">Eğitim</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-round btn-success shadow-success px-5"><i class="icon-lock"></i>Soruları Getir</button><br/><br/>
+            </form>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        @if (IsPost)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <input name="@item.QuestionLine" id="Question_@item.Id" value="@item.QuestionLine" type="hidden" />
+                                <span style="font-weight:bold">@number)</span>
+                                @item.QuestionLine
+
+                                if (item.QuestionType == "EvetHayır")
+                                {
+                                    <div class="icheck-material-primary icheck-inline">
+                                        <input type="radio" id="Id_@item.Id" name="Answer_@item.Id" class="radio_@item.Id" value="@Survey.Constants.AnswerType.Yes">
+                                        <label for="Id_@item.Id">@Survey.Constants.AnswerType.Yes</label>
+
+                                        <input type="radio" id="Id_@gomines" name="Answer_@item.Id" class="radio_@item.Id" value="@Survey.Constants.AnswerType.No">
+                                        <label for="Id_@gomines">@Survey.Constants.AnswerType.No</label>
+                                    </div>
+                                }
+                                else if (item.QuestionType == "coktansecmeli")
+                                {
+                                    <div class="icheck-material-primary icheck-inline">
+                                        <input type="radio" id="Id_@number2" name="Answer_@item.Id" class="radio_@item.Id" value="@Survey.Constants.AnswerType.CoktanSecmeli1">
+                                        <label for="Id_@number2">Çok İyi</label>
+
+                                        <input type="radio" id="Id_@number3" name="Answer_@item.Id" class="radio_@item.Id" value="@Survey.Constants.AnswerType.CoktanSecmeli2">
+                                        <label for="Id_@number3">İyi</label>
+
+                                        <input type="radio" id="Id_@number4" name="Answer_@item.Id" class="radio_@item.Id" value="@Survey.Constants.AnswerType.CoktanSecmeli3">
+                                        <label for="Id_@number4">Orta</label>
+
+                                        <input type="radio" id="Id_@number1" name="Answer_@item.Id" class="radio_@item.Id" value="@Survey.Constants.AnswerType.CoktanSecmeli4">
+                                        <label for="Id_@number1">Biraz</label>
+
+                                        <input type="radio" id="Id_@number5" name="Answer_@item.Id" class="radio_@item.Id" value="@Survey.Constants.AnswerType.CoktanSecmeli5">
+                                        <label for="Id_@number5">Hiç</label>
+                                    </div>
+                                }
+                                else if (item.QuestionType == "Yorum")
+                                {
+                                    <form action="/Question/Index">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="Answer_@item.Id" id="Id_@number6" placeholder="Yorum" maxlength="250" required value="@Survey.Constants.AnswerType.Yorum">
+                                            @*<label for="Id_@number6">Yorum</label>*@ 
+                                        </div>
+                                    </form>
+                                }
+                                <script>
+                        $(document).ready(function () {
+                        $('.radio_@item.Id').click(function () {
+                            var formdata = new FormData();
+                            var code = $('#Code').val();
+                            formdata.set("Code", code);
+                            var namesurname = $('#Code :selected').text();
+                            formdata.set("NameSurname", namesurname);
+                            var quesition = $('#Question_@item.Id').val();
+                            formdata.set("Question", quesition);
+                            var answer = $('input[name="Answer_@item.Id"]:checked').val();
+                            formdata.set("Answer", answer);
+                            if (code == '') {
+                                $('#warningMessage').modal('show');
+                                return;
+                            }
+                            $.ajax({
+                                url: "/Answer/SendData",
+                                data: formdata,
+                                type: "POST",
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                successs: function (data) {
+                                    if (data == "True") {
+                                    }
+                                },
+                                error: function (data) {
+                                    alert("Ekleme işlemi sırasında bir hata meydana geldi!");
+                                }
+                            });
+                            });
+                        });
+                                </script>
+                                gomines--;
+                                number++;
+                                // }
+                            }
+
+                            <div class="form-group">
+                                <a href="~/Answer/Index">
+                                    <button type="submit" class="btn btn-round btn-success shadow-success px-5"><i class="icon-lock"></i> Kaydet</button>
+                                </a>
+                            </div>
+
+
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="modal fade" id="warningMessage">
+            <div class="modal-dialog">
+                <div class="modal-content border-warning">
+                    <div class="modal-header bg-warning">
+                        <h5 class="modal-title text-white"><i class="fa fa-star"></i> Uyarı</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Lütfen bir kişi seçiniz?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
